@@ -4,32 +4,32 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.Drivetrain;
+import frc.robot.Subsystems.SwerveSubsystem;
 
-public class Drive extends Command {
-    private Drivetrain drivetrain;
+public class SwerveCommand extends Command {
+    private SwerveSubsystem swerveSubsystem;
     private DoubleSupplier x;
     private DoubleSupplier y;
     private DoubleSupplier rot;
     private BooleanSupplier fieldOriented;
 
-    public Drive(Drivetrain drivetrain, DoubleSupplier x, DoubleSupplier y, DoubleSupplier rot, BooleanSupplier fieldOriented) {
-        this.drivetrain = drivetrain;
+    public SwerveCommand(SwerveSubsystem swerveSubsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier rot, BooleanSupplier fieldOriented) {
+        this.swerveSubsystem = swerveSubsystem;
         this.x = x;
         this.y = y;
         this.rot = rot;
         this.fieldOriented = fieldOriented;
 
-        addRequirements(drivetrain);
+        addRequirements(swerveSubsystem);
     }
 
     @Override
     public void execute() {
-        drivetrain.drive(x.getAsDouble(), y.getAsDouble(), rot.getAsDouble(), fieldOriented.getAsBoolean());
+        swerveSubsystem.drive(x.getAsDouble(), y.getAsDouble(), rot.getAsDouble(), fieldOriented.getAsBoolean());
     }
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.stop();
+        swerveSubsystem.stop();
     }
 }

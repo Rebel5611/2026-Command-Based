@@ -7,13 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Commands.Drive;
-import frc.robot.Subsystems.Drivetrain;
+import frc.robot.Commands.SwerveCommand;
+import frc.robot.Subsystems.SwerveSubsystem;
 
 public class RobotContainer {
   private final CommandXboxController driveController = new CommandXboxController(Constants.DriveControllerPort);
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final Drive drive = new Drive(drivetrain, () -> driveController.getLeftX(), () -> -driveController.getLeftY(), () -> -driveController.getRightX(), () -> true);
+  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+  private final SwerveCommand swerveCommand = new SwerveCommand(swerveSubsystem, () -> driveController.getLeftX(), () -> -driveController.getLeftY(), () -> -driveController.getRightX(), () -> true);
   public RobotContainer() {
     configureBindings();
   }
@@ -25,6 +25,6 @@ public class RobotContainer {
   }
 
   public void onTeleopInit() {
-    drivetrain.setDefaultCommand(drive);
+    swerveSubsystem.setDefaultCommand(swerveCommand);
   }
 }
