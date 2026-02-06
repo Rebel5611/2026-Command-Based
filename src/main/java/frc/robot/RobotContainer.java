@@ -6,8 +6,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.Drive;
+import frc.robot.Subsystems.Drivetrain;
 
 public class RobotContainer {
+  private final CommandXboxController driveController = new CommandXboxController(Constants.DriveControllerPort);
+  private final Drivetrain drivetrain = new Drivetrain();
+  private final Drive drive = new Drive(drivetrain, () -> driveController.getLeftX(), () -> -driveController.getLeftY(), () -> -driveController.getRightX(), () -> true);
   public RobotContainer() {
     configureBindings();
   }
@@ -16,5 +22,9 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
+  }
+
+  public void onTeleopInit() {
+    drivetrain.setDefaultCommand(drive);
   }
 }
