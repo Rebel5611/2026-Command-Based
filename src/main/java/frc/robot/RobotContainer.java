@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.IntakeFuelCommand;
 import frc.robot.Commands.RunHopperCommand;
+import frc.robot.Commands.ShootCommand;
 import frc.robot.Commands.SwerveCommand;
 import frc.robot.Commands.ToggleIntakeCommand;
 import frc.robot.Subsystems.HopperSubsystem;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.Subsystems.SwerveSubsystem;
+import frc.robot.Subsystems.TowerSubsystem;
 import frc.robot.Subsystems.VisionSubsystem;
 
 public class RobotContainer {
@@ -31,6 +33,9 @@ public class RobotContainer {
   private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
   private final RunHopperCommand runHopper = new RunHopperCommand(hopperSubsystem);
 
+  private final TowerSubsystem towerSubsystem = new TowerSubsystem();
+  private final ShootCommand shoot = new ShootCommand(towerSubsystem);
+
   public RobotContainer() {
     hopperSubsystem.setDefaultCommand(runHopper);
     configureBindings();
@@ -39,6 +44,7 @@ public class RobotContainer {
   private void configureBindings() {
     driveController.a().whileTrue(intakeFuel);
     driveController.x().onTrue(toggleIntake);
+    driveController.rightBumper().whileTrue(shoot);
   }
 
   public Command getAutonomousCommand() {

@@ -36,7 +36,9 @@ public final class Constants {
     public static final double HOPPER_SPEED = 0.6;
     public static final int HOPPER_CURRENT_LIMIT = 20;
 
-
+    public static final int TOWER_CAN_ID = 17;
+    public static final double TOWER_SPEED = 0.6;
+    public static final int TOWER_CURRENT_LIMIT = 20;
 
     public static final AprilTagFieldLayout APRIL_TAG_LAYOUT = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark);
 
