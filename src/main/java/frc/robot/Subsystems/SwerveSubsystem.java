@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers.PoseEstimate;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
@@ -20,7 +22,8 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class SwerveSubsystem extends SubsystemBase {
     private SwerveDrive swerveDrive;
-    public SwerveSubsystem() {
+    private VisionSubsystem visionSubsystem;
+    public SwerveSubsystem(VisionSubsystem visionSubsystem) {
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         try {
             swerveDrive = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve")).createSwerveDrive(Constants.MAXIMUM_MODULE_VELOCITY.in(MetersPerSecond));
@@ -30,6 +33,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
         swerveDrive.setCosineCompensator(RobotBase.isReal());
         swerveDrive.resetOdometry(new Pose2d(new Translation2d(5, 5), new Rotation2d()));
+
+        this.visionSubsystem = visionSubsystem;
     }
 
     public void drive(double x, double y, double rot, boolean fieldOriented) {
@@ -44,5 +49,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void stop() {
         swerveDrive.drive(Translation2d.kZero, 0, false, false);
+    }
+
+    @Override
+    public void periodic() {
+        Optional<PoseEstimate> estimate = visionSubsystem.getPoseEstimate(swerveDrive.getGyro().getRotation3d(), swerveDrive.getGyro().getYawAngularVelocity());
+
+        if (estimate.isPresent()) {
+            swerveDrive.addVisionMeasurement(estimate.get().pose, estimate.get().timestampSeconds);
+        }
     }
 }

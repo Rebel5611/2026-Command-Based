@@ -14,10 +14,14 @@ import frc.robot.Commands.ToggleIntakeCommand;
 import frc.robot.Subsystems.HopperSubsystem;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.Subsystems.SwerveSubsystem;
+import frc.robot.Subsystems.VisionSubsystem;
 
 public class RobotContainer {
   private final CommandXboxController driveController = new CommandXboxController(Constants.DRIVE_CONTROLLER_PORT);
-  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
+
+  private final VisionSubsystem visionSubsystem = new VisionSubsystem();
+
+  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(visionSubsystem);
   private final SwerveCommand swerveCommand = new SwerveCommand(swerveSubsystem, () -> driveController.getLeftX(), () -> -driveController.getLeftY(), () -> -driveController.getRightX(), () -> true);
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
