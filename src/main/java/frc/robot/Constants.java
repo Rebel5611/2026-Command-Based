@@ -26,4 +26,8 @@ public final class Constants {
     public static final double INTAKE_ARM_P = 0.0001;
     public static final double INTAKE_ARM_I = 0;
     public static final double INTAKE_ARM_D = 0;
+
+    public static final int HOPPER_CAN_ID = 16;
+    public static final double HOPPER_SPEED = 0.6;
+    public static final int HOPPER_CURRENT_LIMIT = 20;
 }

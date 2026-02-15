@@ -17,8 +17,13 @@ public class IntakeFuelCommand extends Command {
         if (!intakeSubsystem.getExtended()) {
             intakeSubsystem.toggleIntake();
         }
+    }
 
-        intakeSubsystem.intakeFuel();
+    @Override
+    public void execute() {
+        if (!intakeSubsystem.getExtended()) {
+            intakeSubsystem.intakeFuel();
+        }
     }
 
     @Override

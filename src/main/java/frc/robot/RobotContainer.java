@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.IntakeFuelCommand;
+import frc.robot.Commands.RunHopperCommand;
 import frc.robot.Commands.SwerveCommand;
 import frc.robot.Commands.ToggleIntakeCommand;
+import frc.robot.Subsystems.HopperSubsystem;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.Subsystems.SwerveSubsystem;
 
@@ -22,7 +24,11 @@ public class RobotContainer {
   private final IntakeFuelCommand intakeFuel = new IntakeFuelCommand(intakeSubsystem);
   private final ToggleIntakeCommand toggleIntake = new ToggleIntakeCommand(intakeSubsystem); 
 
+  private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
+  private final RunHopperCommand runHopper = new RunHopperCommand(hopperSubsystem);
+
   public RobotContainer() {
+    hopperSubsystem.setDefaultCommand(runHopper);
     configureBindings();
   }
 
