@@ -36,7 +36,13 @@ public class VisionSubsystem extends SubsystemBase {
         PoseEstimate rightEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(Constants.RIGHT_LIMELIGHT_NAME);
 
         if (leftEstimate.tagCount + rightEstimate.tagCount > 0) {
-            if (leftEstimate.tagCount >= rightEstimate.tagCount) {
+            if (Math.abs(leftEstimate.timestampSeconds - rightEstimate.timestampSeconds) > 0.02) {
+                if (leftEstimate.timestampSeconds > rightEstimate.timestampSeconds) {
+                    return Optional.of(leftEstimate);
+                } else {
+                    return Optional.of(rightEstimate);
+                }
+            } else if (leftEstimate.tagCount >= rightEstimate.tagCount) {
                 return Optional.of(leftEstimate);
             } else {
                 return Optional.of(rightEstimate);

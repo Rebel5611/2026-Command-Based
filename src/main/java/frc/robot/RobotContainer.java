@@ -11,11 +11,13 @@ import frc.robot.Commands.IntakeFuelCommand;
 import frc.robot.Commands.RunHopperCommand;
 import frc.robot.Commands.ShootCommand;
 import frc.robot.Commands.SwerveCommand;
+import frc.robot.Commands.TargetCommand;
 import frc.robot.Commands.ToggleIntakeCommand;
 import frc.robot.Subsystems.HopperSubsystem;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.Subsystems.SwerveSubsystem;
 import frc.robot.Subsystems.TowerSubsystem;
+import frc.robot.Subsystems.TurretSubsystem;
 import frc.robot.Subsystems.VisionSubsystem;
 
 public class RobotContainer {
@@ -33,11 +35,15 @@ public class RobotContainer {
   private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
   private final RunHopperCommand runHopper = new RunHopperCommand(hopperSubsystem);
 
+  private final TurretSubsystem turretSubsystem = new TurretSubsystem();
+  private final TargetCommand targetHub = new TargetCommand(swerveSubsystem, turretSubsystem);
+
   private final TowerSubsystem towerSubsystem = new TowerSubsystem();
-  private final ShootCommand shoot = new ShootCommand(towerSubsystem);
+  private final ShootCommand shoot = new ShootCommand(towerSubsystem, turretSubsystem);
 
   public RobotContainer() {
     hopperSubsystem.setDefaultCommand(runHopper);
+    turretSubsystem.setDefaultCommand(targetHub);
     configureBindings();
   }
 

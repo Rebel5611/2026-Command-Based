@@ -1,15 +1,18 @@
 package frc.robot.Subsystems;
 
 
+import static edu.wpi.first.units.Units.Rotation;
+import static edu.wpi.first.units.Units.Degree;
+
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.units.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,8 +22,8 @@ public class IntakeSubsystem extends SubsystemBase {
     private SparkMaxConfig intakeConfig;
 
     private SparkMax arm;
-    private SparkClosedLoopController armPID;
     private SparkMaxConfig armConfig;
+    private SparkClosedLoopController armPID;
 
     private boolean extended = false;
     public IntakeSubsystem() {
@@ -31,28 +34,27 @@ public class IntakeSubsystem extends SubsystemBase {
         intake.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         arm = new SparkMax(Constants.INTAKE_ARM_CAN_ID, MotorType.kBrushless);
-        armPID = arm.getClosedLoopController();
         
         armConfig = new SparkMaxConfig();
         armConfig.smartCurrentLimit(Constants.INTAKE_ARM_CURRENT_LIMIT);
+        armConfig.encoder.positionConversionFactor(1/Constants.INTAKE_ARM_GEAR_RATIO);
         armConfig.closedLoop.pid(Constants.INTAKE_ARM_P, Constants.INTAKE_ARM_I, Constants.INTAKE_ARM_D);
+        armConfig.closedLoop.allowedClosedLoopError(Constants.INTAKE_ARM_ALLOWED_ERROR.in(Rotation), ClosedLoopSlot.kSlot0);
         arm.configure(armConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        armPID = arm.getClosedLoopController();
     }
 
     public void toggleIntake() {
         if (extended) {
-            setIntakeAngle(Units.Degrees.zero());
+            setIntakeAngle(Degree.zero());
         } else {
             setIntakeAngle(Constants.INTAKE_ARM_EXTENSION_ANGLE);
         }
-        extended = !extended;
     }
 
     public void setIntakeAngle(Angle angle) {
-        armPID.setSetpoint(angle.in(Units.Revolution) *
-                           Constants.INTAKE_ARM_GEAR_RATIO *
-                           Constants.NEO_ENCODER_COUNTS_PER_REVOLUTION,
-                           ControlType.kPosition);
+        armPID.setSetpoint(angle.in(Rotation), ControlType.kPosition);
     }
 
     public boolean getExtended() {
@@ -69,5 +71,10 @@ public class IntakeSubsystem extends SubsystemBase {
     
     public void stop() {
         intake.stopMotor();
+    }
+
+    @Override
+    public void periodic() {
+        extended = armPID.isAtSetpoint() && armPID.getSetpoint() == Constants.INTAKE_ARM_EXTENSION_ANGLE.in(Rotation);
     }
 }

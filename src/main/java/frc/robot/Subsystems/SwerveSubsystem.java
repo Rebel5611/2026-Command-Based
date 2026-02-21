@@ -1,17 +1,22 @@
 package frc.robot.Subsystems;
 
+import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.PropertyResourceBundle;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers.PoseEstimate;
@@ -49,6 +54,22 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void stop() {
         swerveDrive.drive(Translation2d.kZero, 0, false, false);
+    }
+
+    public boolean isInAllianceZone() {
+        if (DriverStation.getAlliance().get() == Alliance.Red) {
+            return swerveDrive.getPose().getMeasureX().in(Meter) >= Constants.FIELD_LENGTH.in(Meter) - Constants.ALLIANCE_ZONE_WIDTH.in(Meter);
+        } else {
+            return swerveDrive.getPose().getMeasureX().in(Meter) <= Constants.ALLIANCE_ZONE_WIDTH.in(Meter);
+        }
+    }
+
+    public Pose2d getPose() {
+        return swerveDrive.getPose();
+    }
+
+    public Translation2d getFieldVelocity() {
+        return new Translation2d(swerveDrive.getFieldVelocity().vxMetersPerSecond, swerveDrive.getFieldVelocity().vyMetersPerSecond);
     }
 
     @Override
