@@ -26,24 +26,27 @@ public class TargetCommand extends Command {
     @Override
     public void execute() {
         if (turretSubsystem.isHubActive() && swerveSubsystem.isInAllianceZone()) {
+            turretSubsystem.setShooterSpeed(Constants.SHOOTER_SPEED);
+
             Translation2d hubPosition;
-            boolean flipAngle;
             if (DriverStation.getAlliance().get() == Alliance.Red) {
                 hubPosition = new Translation2d(Constants.FIELD_WIDTH.in(Meter) / 2, Constants.FIELD_LENGTH.in(Meter) - Constants.ALLIANCE_ZONE_WIDTH.in(Meter));
-                flipAngle = false;
             } else {
                 hubPosition = new Translation2d(Constants.FIELD_WIDTH.in(Meter) / 2, Constants.ALLIANCE_ZONE_WIDTH.in(Meter));
-                flipAngle = true;
             }
             hubPosition = hubPosition.minus(swerveSubsystem.getFieldVelocity().times(Constants.FUEL_FLIGHT_TIME));
 
             Rotation2d angleToHub = hubPosition.minus(swerveSubsystem.getPose().getTranslation()).getAngle();
-            angleToHub = angleToHub.minus(swerveSubsystem.getPose().getRotation());
-            if (flipAngle) {
-                angleToHub = angleToHub.unaryMinus();
-            }
+            angleToHub = angleToHub.minus(swerveSubsystem.getPose().getRotation()).unaryMinus();
 
             turretSubsystem.setTurretAngle(Units.Degree.of(angleToHub.getDegrees() % 360));
+        } else {
+            turretSubsystem.stopShooter();
         }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        turretSubsystem.stopShooter();
     }
 }

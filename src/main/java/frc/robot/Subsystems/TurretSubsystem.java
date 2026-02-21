@@ -77,6 +77,13 @@ public class TurretSubsystem extends SubsystemBase {
         hoodPID.setSetpoint(angle.in(Rotation), ControlType.kPosition);
     }
 
+    public void setShooterSpeed(double speed) {
+        shooter.set(speed);
+    }
+
+    public void stopShooter() {
+        shooter.set(0);
+    }
 
     public boolean isHubActive() {
         Optional<Alliance> alliance = DriverStation.getAlliance();
