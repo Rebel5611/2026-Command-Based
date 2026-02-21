@@ -24,11 +24,11 @@ public final class Constants {
 
     public static final int NEO_ENCODER_COUNTS_PER_REVOLUTION = 42;
 
-    public static final int INTAKE_CAN_ID = 14;
+    public static final int INTAKE_CAN_ID = 15;
     public static final double INTAKE_SPEED = 0.6;
     public static final int INTAKE_CURRENT_LIMIT = 20;
 
-    public static final int INTAKE_ARM_CAN_ID = 15;
+    public static final int INTAKE_ARM_CAN_ID = 14;
     public static final Angle INTAKE_ARM_EXTENSION_ANGLE = Units.Degrees.of(110);
     public static final double INTAKE_ARM_GEAR_RATIO = 20;
     public static final int INTAKE_ARM_CURRENT_LIMIT = 30;
@@ -37,19 +37,19 @@ public final class Constants {
     public static final double INTAKE_ARM_I = 0;
     public static final double INTAKE_ARM_D = 0;
 
-    public static final int HOPPER_CAN_ID = 16;
+    public static final int HOPPER_CAN_ID = 7;
     public static final double HOPPER_SPEED = 0.6;
     public static final int HOPPER_CURRENT_LIMIT = 20;
 
-    public static final int TOWER_CAN_ID = 17;
+    public static final int TOWER_CAN_ID = 6;
     public static final double TOWER_SPEED = 0.6;
     public static final int TOWER_CURRENT_LIMIT = 20;
 
-    public static final int SHOOTER_CAN_ID = 18;
+    public static final int SHOOTER_CAN_ID = 30;
     public static final double SHOOTER_SPEED = 1;
     public static final int SHOOTER_CURRENT_LIMIT = 60;
 
-    public static final int HOOD_CAN_ID = 19;
+    public static final int HOOD_CAN_ID = 31;
     public static final double HOOD_GEAR_RATIO = 27;
     public static final int HOOD_CURRENT_LIMIT = 20;
     public static final Angle HOOD_ALLOWED_ERROR = Units.Degrees.of(1);
@@ -57,7 +57,7 @@ public final class Constants {
     public static final double HOOD_I = 0;
     public static final double HOOD_D = 0;
 
-    public static final int TURRET_CAN_ID = 20;
+    public static final int TURRET_CAN_ID = 32;
     public static final double TURRET_GEAR_RATIO = 800.0/21;
     public static final int TURRET_CURRENT_LIMIT = 30;
     public static final Angle TURRET_ALLOWED_ERROR = Units.Degrees.of(1);
