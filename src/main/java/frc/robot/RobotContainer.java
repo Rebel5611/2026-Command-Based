@@ -28,12 +28,12 @@ public class RobotContainer {
   private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem(visionSubsystem);
   private final SwerveCommand swerveCommand = new SwerveCommand(swerveSubsystem, () -> driveController.getLeftX(), () -> -driveController.getLeftY(), () -> -driveController.getRightX(), () -> true);
 
-  // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  // private final IntakeFuelCommand intakeFuel = new IntakeFuelCommand(intakeSubsystem);
-  // private final ToggleIntakeCommand toggleIntake = new ToggleIntakeCommand(intakeSubsystem); 
+  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  private final IntakeFuelCommand intakeFuel = new IntakeFuelCommand(intakeSubsystem);
+  private final ToggleIntakeCommand toggleIntake = new ToggleIntakeCommand(intakeSubsystem); 
 
-  // private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
-  // private final RunHopperCommand runHopper = new RunHopperCommand(hopperSubsystem);
+  private final HopperSubsystem hopperSubsystem = new HopperSubsystem();
+  private final RunHopperCommand runHopper = new RunHopperCommand(hopperSubsystem);
 
   // private final TurretSubsystem turretSubsystem = new TurretSubsystem();
   // private final TargetCommand targetHub = new TargetCommand(swerveSubsystem, turretSubsystem);
@@ -42,14 +42,14 @@ public class RobotContainer {
   // private final ShootCommand shoot = new ShootCommand(towerSubsystem, turretSubsystem);
 
   public RobotContainer() {
-    // hopperSubsystem.setDefaultCommand(runHopper);
+    hopperSubsystem.setDefaultCommand(runHopper);
     // turretSubsystem.setDefaultCommand(targetHub);
     configureBindings();
   }
 
   private void configureBindings() {
-    // driveController.a().whileTrue(intakeFuel);
-    // driveController.x().onTrue(toggleIntake);
+    driveController.a().whileTrue(intakeFuel);
+    driveController.x().onTrue(toggleIntake);
     // driveController.rightBumper().whileTrue(shoot);
   }
 
