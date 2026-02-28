@@ -58,7 +58,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void setIntakeAngle(Angle angle) {
-        armPID.setSetpoint(angle.in(Rotation), ControlType.kPosition);
+        armPID.setSetpoint(-angle.in(Rotation), ControlType.kPosition);
     }
 
     public boolean getExtended() {
