@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -13,6 +14,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.units.measure.Angle;
@@ -38,12 +40,14 @@ public class TurretSubsystem extends SubsystemBase {
 
     public TurretSubsystem() {
         shooter = new TalonFX(Constants.SHOOTER_CAN_ID);
+        shooterConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         shooterConfig.CurrentLimits.StatorCurrentLimit = Constants.SHOOTER_CURRENT_LIMIT;
         shooter.getConfigurator().apply(shooterConfig);
 
         hood = new SparkMax(Constants.HOOD_CAN_ID, MotorType.kBrushless);
         
         hoodConfig = new SparkMaxConfig();
+        hoodConfig.idleMode(IdleMode.kBrake);
         hoodConfig.smartCurrentLimit(Constants.HOOD_CURRENT_LIMIT);
         hoodConfig.encoder.positionConversionFactor(1/Constants.HOOD_GEAR_RATIO);
         hoodConfig.closedLoop.pid(Constants.HOOD_P, Constants.HOOD_I, Constants.HOOD_D);
@@ -58,6 +62,7 @@ public class TurretSubsystem extends SubsystemBase {
         turret = new SparkMax(Constants.TURRET_CAN_ID, MotorType.kBrushless);
         
         turretConfig = new SparkMaxConfig();
+        turretConfig.idleMode(IdleMode.kBrake);
         turretConfig.smartCurrentLimit(Constants.TURRET_CURRENT_LIMIT);
         turretConfig.encoder.positionConversionFactor(1/Constants.TURRET_GEAR_RATIO);
         turretConfig.closedLoop.pid(Constants.TURRET_P, Constants.TURRET_I, Constants.TURRET_D);

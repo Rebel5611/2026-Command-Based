@@ -5,6 +5,7 @@ import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +19,7 @@ public class TowerSubsystem extends SubsystemBase {
         tower = new SparkMax(Constants.TOWER_CAN_ID, MotorType.kBrushless);
 
         towerConfig = new SparkMaxConfig();
+        towerConfig.idleMode(IdleMode.kBrake);
         towerConfig.smartCurrentLimit(Constants.TOWER_CURRENT_LIMIT);
         tower.configure(towerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }

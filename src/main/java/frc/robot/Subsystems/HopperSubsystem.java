@@ -4,6 +4,7 @@ package frc.robot.Subsystems;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -18,6 +19,7 @@ public class HopperSubsystem extends SubsystemBase {
         hopper = new SparkMax(Constants.HOPPER_CAN_ID, MotorType.kBrushless);
 
         hopperConfig = new SparkMaxConfig();
+        hopperConfig.idleMode(IdleMode.kCoast);
         hopperConfig.smartCurrentLimit(Constants.HOPPER_CURRENT_LIMIT);
         hopper.configure(hopperConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
