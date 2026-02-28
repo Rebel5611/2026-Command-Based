@@ -62,7 +62,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean getExtended() {
-        return extended;
+        return arm.getEncoder().getPosition() - -Constants.INTAKE_ARM_EXTENSION_ANGLE.in(Rotation) <= Constants.INTAKE_ARM_ALLOWED_ERROR.in(Rotation);
     }
 
     public void intakeFuel() {
