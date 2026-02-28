@@ -66,11 +66,11 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void intakeFuel() {
-        intake.set(Constants.INTAKE_SPEED);
+        intake.set(-Constants.INTAKE_SPEED);
     }
 
     public void spitFuel() {
-        intake.set(-Constants.INTAKE_SPEED);
+        intake.set(Constants.INTAKE_SPEED);
     }
     
     public void stop() {
