@@ -54,6 +54,7 @@ public class IntakeSubsystem extends SubsystemBase {
         } else {
             setIntakeAngle(Constants.INTAKE_ARM_EXTENSION_ANGLE);
         }
+        extended = !extended;
     }
 
     public void setIntakeAngle(Angle angle) {
@@ -74,10 +75,5 @@ public class IntakeSubsystem extends SubsystemBase {
     
     public void stop() {
         intake.stopMotor();
-    }
-
-    @Override
-    public void periodic() {
-        //extended = armPID.isAtSetpoint() && armPID.getSetpoint() == Constants.INTAKE_ARM_EXTENSION_ANGLE.in(Rotation);
     }
 }
