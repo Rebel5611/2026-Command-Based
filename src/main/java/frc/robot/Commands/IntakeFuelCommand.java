@@ -22,7 +22,11 @@ public class IntakeFuelCommand extends Command {
 
     @Override
     public void execute() {
-        intakeSubsystem.intakeFuel();
+        if (intakeSubsystem.getExtended()) {
+            intakeSubsystem.intakeFuel();
+        } else {
+            intakeSubsystem.stop();
+        }
     }
 
     @Override
