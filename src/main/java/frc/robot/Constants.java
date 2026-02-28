@@ -28,7 +28,7 @@ public final class Constants {
     public static final double INTAKE_SPEED = 0.6;
     public static final int INTAKE_CURRENT_LIMIT = 20;
 
-    public static final int INTAKE_ARM_CAN_ID = 50;
+    public static final int INTAKE_ARM_CAN_ID = 14;
     public static final Angle INTAKE_ARM_EXTENSION_ANGLE = Units.Degrees.of(50);
     public static final double INTAKE_ARM_GEAR_RATIO = 20;
     public static final int INTAKE_ARM_CURRENT_LIMIT = 30;
