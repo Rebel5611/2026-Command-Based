@@ -24,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     private SparkMax arm;
     private SparkMaxConfig armConfig;
-    private SparkClosedLoopController armPID;
+    ///private SparkClosedLoopController armPID;
 
     private boolean extended = false;
     public IntakeSubsystem() {
@@ -57,7 +57,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void setIntakeAngle(Angle angle) {
-        armPID.setSetpoint(angle.in(Rotation), ControlType.kPosition);
+        //armPID.setSetpoint(angle.in(Rotation), ControlType.kPosition);
     }
 
     public boolean getExtended() {
@@ -78,6 +78,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        extended = armPID.isAtSetpoint() && armPID.getSetpoint() == Constants.INTAKE_ARM_EXTENSION_ANGLE.in(Rotation);
+        //extended = armPID.isAtSetpoint() && armPID.getSetpoint() == Constants.INTAKE_ARM_EXTENSION_ANGLE.in(Rotation);
     }
 }
