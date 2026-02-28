@@ -31,9 +31,9 @@ public final class Constants {
     public static final int INTAKE_ARM_CAN_ID = 14;
     public static final Angle INTAKE_ARM_EXTENSION_ANGLE = Units.Degrees.of(50);
     public static final double INTAKE_ARM_GEAR_RATIO = 20;
-    public static final int INTAKE_ARM_CURRENT_LIMIT = 30;
+    public static final int INTAKE_ARM_CURRENT_LIMIT = 20;
     public static final Angle INTAKE_ARM_ALLOWED_ERROR = Units.Degrees.of(1);
-    public static final double INTAKE_ARM_P = 0.0001;
+    public static final double INTAKE_ARM_P = 2.5;
     public static final double INTAKE_ARM_I = 0;
     public static final double INTAKE_ARM_D = 0;
 

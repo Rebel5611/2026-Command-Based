@@ -42,7 +42,7 @@ public class RobotContainer {
   // private final ShootCommand shoot = new ShootCommand(towerSubsystem, turretSubsystem);
 
   public RobotContainer() {
-    hopperSubsystem.setDefaultCommand(runHopper);
+    // hopperSubsystem.setDefaultCommand(runHopper);
     // turretSubsystem.setDefaultCommand(targetHub);
     configureBindings();
   }
