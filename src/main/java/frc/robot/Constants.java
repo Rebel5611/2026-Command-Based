@@ -25,7 +25,7 @@ public final class Constants {
     public static final int NEO_ENCODER_COUNTS_PER_REVOLUTION = 42;
 
     public static final int INTAKE_CAN_ID = 15;
-    public static final double INTAKE_SPEED = 0.6;
+    public static final double INTAKE_SPEED = 0.1;
     public static final int INTAKE_CURRENT_LIMIT = 20;
 
     public static final int INTAKE_ARM_CAN_ID = 14;
