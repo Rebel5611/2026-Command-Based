@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
         // armConfig.closedLoop.allowedClosedLoopError(Constants.INTAKE_ARM_ALLOWED_ERROR.in(Rotation), ClosedLoopSlot.kSlot0);
         arm.configure(armConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-        armPID = arm.getClosedLoopController();
+        //armPID = arm.getClosedLoopController();
     }
 
     public void toggleIntake() {
